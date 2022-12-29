@@ -18,6 +18,6 @@ export const Headertext = styled.h1`
 
 export const body = styled.div`
     margin: auto;
-    max-width: 980px
+    max-width: 980px;
     margin-bottom: 50px;
 `;
