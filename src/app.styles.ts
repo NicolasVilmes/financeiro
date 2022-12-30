@@ -10,7 +10,7 @@ export const Header = styled.div`
 `;
 
 export const Headertext = styled.h1`
-    margin: 0 0 0 40vw;
+    margin: 0 0 0 36svw;
     padding: 0;
     color: #FFF;
     padding-top: 30px
