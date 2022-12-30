@@ -4,26 +4,63 @@ import { Item } from "./types/Item";
 import { Category } from "./types/category";
 import { categories } from "./data/categories";
 import { items } from "./data/items";
-import { getCurrentMoth, FilterListByMoth } from "./utility/dateFilter";
+import { getCurrentMonth, filterListByMonth } from "./utility/dateFilter";
 import { Table } from "./components/Table";
+import { InfoArea } from "./components/Info";
+import { InputArea } from "./components/InputArea/";
 
 const App = () => {
   const [list, setList] = useState(items);
-  const [filteredList, setfeilteredList] = useState<Item[]>([]);
-  const [CurrentMoth, setCurrentMoth] = useState(getCurrentMoth());
+  const [filteredList, setFilteredList] = useState<Item[]>([]);
+  const [currentMonth, setCurrentMonth] = useState(getCurrentMonth());
+  const [income, setIncome] = useState(0);
+  const [expense, setExpense] = useState(0);
 
   useEffect(() => {
-    setfeilteredList(FilterListByMoth(list, CurrentMoth));
-  }, [list, CurrentMoth]);
+    setFilteredList(filterListByMonth(list, currentMonth));
+  }, [list, currentMonth]);
+
+  useEffect(() => {
+    let incomeCount = 0;
+    let expenseCount = 0;
+
+    for (let i in filteredList) {
+      if (categories[filteredList[i].category].expense) {
+        expenseCount += filteredList[i].value;
+      } else {
+        incomeCount += filteredList[i].value;
+      }
+    }
+
+    setIncome(incomeCount);
+    setExpense(expenseCount);
+  }, [filteredList]);
+
+  const handleMonthChange = (newMonth: string) => {
+    setCurrentMonth(newMonth);
+  };
+
+  const handleAddItem = (item: Item) => {
+    let newList = [...list];
+    newList.push(item);
+    setList(newList);
+  };
 
   return (
     <C.Conteiner>
       <C.Header>
-        <C.Headertext>Meu Balanço</C.Headertext>
+        <C.Headertext>Sistema Financeiro</C.Headertext>
       </C.Header>
       <C.body>
-        {}
-        {}
+        <InfoArea
+          currentMonth={currentMonth}
+          onMonthChange={handleMonthChange}
+          income={income}
+          expense={expense}
+        />
+
+        <InputArea onAdd={handleAddItem} />
+
         <Table list={filteredList} />
       </C.body>
     </C.Conteiner>
