@@ -35,11 +35,11 @@ export const InfoArea = ({
     <C.Container>
       <C.MonthArea>
         <C.MonthArrow onClick={handlePrevMonth}>
-          <img src={LeftArrow} />
+          <img src={Left_Arrow} />
         </C.MonthArrow>
         <C.MonthTitle>{formatCurrentMonth(currentMonth)}</C.MonthTitle>
         <C.MonthArrow onClick={handleNextMonth}>
-          <img src={RightArrow} />
+          <img src={Right_Arrow} />
         </C.MonthArrow>
       </C.MonthArea>
       <C.ResumeArea>
